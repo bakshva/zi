@@ -6,10 +6,12 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include <numeric>
+#include <cmath>
+#include <cstdlib>
 
-
-int mod_step(int a, int x, int p);
-//int ferma();
+long long pows(long long a, long long x, long long p);
+bool ferma(long long p);
 //int evklid(int a, int b);
 
 #endif
