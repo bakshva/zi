@@ -12,4 +12,6 @@ int main(){
     std::cout << "ответ: " << y << "\n";
 
     std::cout << ferma(n1) <<  " " << ferma(n2) << "\n";
+
+    std::cout << "НОД: " << gcd(1, n2, n1) << "\n";
 }
