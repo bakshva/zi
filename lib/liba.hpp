@@ -12,6 +12,6 @@
 
 long long pows(long long a, long long x, long long p);
 bool ferma(long long p);
-//int evklid(int a, int b);
+long long gcd(bool mode, long long a = -1, long long b = -1);
 
 #endif
