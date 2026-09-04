@@ -13,6 +13,6 @@
 long long pows(long long a, long long x, long long p);
 bool ferma(long long p);
 long long gcd(bool mode, long long a = -1, long long b = -1);
-void lit_big(int a, int y, int p);
+void lit_big(long long a, long long y, long long p);
 
 #endif
