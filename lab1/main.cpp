@@ -1,17 +1,71 @@
-#include "../lib/liba.hpp"
+#include <liba.hpp>
+#include <iostream>
+#include <string>
+#include <limits>
 
-int main(){
-    int a = 7;
-    int x = 19;
-    int p = 100;
-    int n1 = 67;
-    int n2 = 1488;
+void menu() {
+    std::cout << "Выберите команду:\n"
+              << "1 - Быстрое возведение в степень по модулю\n"
+              << "2 - Тест простоты Ферма\n"
+              << "3 - Обобщённый алгоритм Евклида\n"
+              << "exit - выход\n";
+}
 
-    int y = pows(a,x,p);
+void clear_input() {
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+}
 
-    std::cout << "ответ: " << y << "\n";
+int main() {
+    std::string command;
 
-    std::cout << ferma(n1) <<  " " << ferma(n2) << "\n";
+    while (true) {
+        menu();
+        std::cin >> command;
 
-    std::cout << "НОД: " << gcd(1, n2, n1) << "\n";
+        if (command == "exit") {
+            break;
+        }
+        else if (command == "1") {
+            long long a, x, p;
+            std::cout << "Уравнение (a^x) % p = y. Введите a, x, p:\n";
+
+            if (!(std::cin >> a >> x >> p)) {
+                std::cout << "Ошибка: нужно ввести три числа\n\n";
+                clear_input();
+                continue;
+            }
+
+            std::cout << "Результат: " << pows(a, x, p) << "\n\n";
+        }
+        else if (command == "2") {
+            long long p;
+            std::cout << "Введите число для проверки:\n";
+
+            if (!(std::cin >> p)) {
+                std::cout << "Ошибка: нужно ввести число\n\n";
+                clear_input();
+                continue;
+            }
+
+            std::cout << (ferma(p) ? "Вероятно простое\n\n" : "Составное\n\n");
+        }
+        else if (command == "3") {
+            long long a, b;
+            std::cout << "Введите a и b:\n";
+
+            if (!(std::cin >> a >> b)) {
+                std::cout << "Ошибка: нужно ввести два числа\n\n";
+                clear_input();
+                continue;
+            }
+
+            std::cout << "НОД = " << gcd(false, a, b) << "\n\n";
+        }
+        else {
+            std::cout << "Неизвестная команда\n\n";
+        }
+    }
+
+    return 0;
 }

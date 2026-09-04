@@ -1,0 +1,37 @@
+CXX      = g++
+CXXFLAGS = -std=c++20 -Wall -Wextra -g
+LDFLAGS  =
+
+LIB_SRC  = lib/liba.cpp
+LIB_OBJ  = lib/liba.o
+LIB_INC  = -Ilib
+
+LABS     = lab1 lab2
+
+.PHONY: all clean $(LABS)
+
+all: $(LABS)
+
+$(LIB_OBJ): $(LIB_SRC) lib/liba.hpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+lab1: lab1/main
+lab2: lab2/main
+
+lab1/main: lab1/main.cpp $(LIB_OBJ)
+	$(CXX) $(CXXFLAGS) $(LIB_INC) $^ -o $@ $(LDFLAGS)
+
+lab2/main: lab2/main.cpp $(LIB_OBJ)
+	$(CXX) $(CXXFLAGS) $(LIB_INC) $^ -o $@ $(LDFLAGS)
+
+
+GTEST_LIBS = -lgtest -lgtest_main -pthread
+
+lab1/test: lab1/test.cpp $(LIB_OBJ)
+	$(CXX) $(CXXFLAGS) $(LIB_INC) $^ -o $@ $(GTEST_LIBS)
+
+test: lab1/test
+	./lab1/test
+
+clean:
+	rm -f lib/*.o lab1/main lab2/main
