@@ -1,26 +1,30 @@
 #include "liba.hpp"
 
 long long pows(long long a, long long x, long long p) {
-  std::vector<int> mods;
+  if (p == 1) return 0;
+
+  std::vector<long long> mods;
   std::string x_bin = std::format("{:b}", x);
   std::reverse(x_bin.begin(), x_bin.end());
+
   long long result = 1;
+
   for (size_t i = 0; i < x_bin.length(); i++) {
-    int mod_i;
+    long long mod_i;
     if (i == 0) {
       mod_i = a % p;
-
     } else {
       mod_i = (mods[i - 1] * mods[i - 1]) % p;
     }
 
     mods.push_back(mod_i);
+
     if (x_bin[i] == '1') {
-      result = result * mod_i;
+      result = (result * mod_i) % p;
     }
   }
 
-  return result % p;
+  return result;
 }
 
 bool ferma(long long p) {
