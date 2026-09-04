@@ -59,8 +59,9 @@ int main() {
                 clear_input();
                 continue;
             }
-
-            std::cout << "НОД = " << gcd(false, a, b) << "\n\n";
+            
+            int gcd_var = gcd(false, a, b);
+            std::cout << "НОД = " << gcd_var << "\n\n";
         }
         else {
             std::cout << "Неизвестная команда\n\n";

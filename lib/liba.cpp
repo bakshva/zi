@@ -43,9 +43,6 @@ bool ferma(long long p) {
   return true;
 }
 
-/*пока ничего лучше отдельной функции генерации с while не придумал
-сложно придумать что-то более изящное чтобы генерировать число
-и при этом чтобы оно сразу было простым, надо кумекать*/
 long long generate() {
   while (true) {
     long long prime = (rand() % 1000000) + 2;
@@ -90,10 +87,9 @@ long long gcd(bool mode, long long a, long long b) {
   b = u[2];
   result = u[0];
 
-  return result; /* просто НОД но если возвращать еще и а и б
-              то нужно либо через структуру либо переделывать
-              чтобы функция возвращала vector, переделаю 
-              МАЯКНИ В ЛС КАК ПЕРЕДЕЛАЕШЬ*/
+  std::cout << "a = " << a << " b = " << b << "\n";
+
+  return result;
 }
 
 std::vector<long long> lit_big(long long a, long long y, long long p) {
