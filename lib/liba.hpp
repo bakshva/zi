@@ -11,7 +11,7 @@
 int mod_step(int a, int x, int p);
 //int ferma();
 //int evklid(int a, int b);
-int lit_big(int a, int x, int p);
+void lit_big(long long a, long long y, long long p);
 
 
 #endif
