@@ -91,21 +91,21 @@ long long gcd(bool mode, long long a, long long b) {
               чтобы функция возвращала vector, переделаю */
 }
 
-void lit_big(int a, int y, int p) {
-  int root = 1;
-  std::vector<int> lit;
-  std::vector<int> big;
-  std::vector<int> result;
+void lit_big(long long a, long long y, long long p) {
+  long long root = 1;
+  std::vector<long long> lit;
+  std::vector<long long> big;
+  std::vector<long long> result;
   while (root * root < p) {
     root = root + 1;
   }
-  int m = 0;
-  int k = 0;
+  long long m = 0;
+  long long k = 0;
   if (root * root == p) {
     m = root;
     k = root;
   } else {
-    int sum = root + root;
+    long long sum = root + root;
     m = 1;
     k = sum - m;
 
@@ -117,19 +117,17 @@ void lit_big(int a, int y, int p) {
   std::cout << "m = " << m << "\n";
   std::cout << "k = " << k << "\n";
 
-  for (int j = 0; j < m; j++) {
-    int x = (mod_step(y, 1, p) * mod_step(a, j, p)) % p;
-    std::cout << "lit " << x << "\n";
+  for (long long j = 0; j < m; j++) {
+    long long x = (pows(y, 1, p) * pows(a, j, p)) % p;
     lit.push_back(x);
   }
 
-  for (int i = 1; i < k + 1; i++) {
-    int x = mod_step(a, m * i, p);
-    std::cout << "big " << x << "\n";
+  for (long long i = 1; i < k + 1; i++) {
+    long long x = pows(a, m * i, p);
     big.push_back(x);
   }
 
-  std::unordered_map<int, std::vector<size_t>> pos;
+  std::unordered_map<long long, std::vector<size_t>> pos;
   for (size_t i = 0; i < big.size(); ++i)
     pos[big[i]].push_back(i);
 
@@ -138,7 +136,7 @@ void lit_big(int a, int y, int p) {
     auto it = pos.find(lit[j]);
     if (it != pos.end()) {
       for (size_t i : it->second) {
-        int x = (i + 1) * m - static_cast<int>(j);
+        long long x = (i + 1) * m - static_cast<long long>(j);
         std::cout << "X(" << count << ") = " << x << "\n";
         result.push_back(x);
         ++count;
