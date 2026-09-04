@@ -30,8 +30,18 @@ GTEST_LIBS = -lgtest -lgtest_main -pthread
 lab1/test: lab1/test.cpp $(LIB_OBJ)
 	$(CXX) $(CXXFLAGS) $(LIB_INC) $^ -o $@ $(GTEST_LIBS)
 
-test: lab1/test
+lab2/test: lab2/test.cpp $(LIB_OBJ)
+	$(CXX) $(CXXFLAGS) $(LIB_INC) $^ -o $@ $(GTEST_LIBS)
+
+test: lab1/test lab2/test
+	./lab1/test
+	./lab2/test
+
+test1: lab1/test
 	./lab1/test
 
+test2: lab2/test
+	./lab2/test
+	
 clean:
 	rm -f lib/*.o lab1/main lab2/main

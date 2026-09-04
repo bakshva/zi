@@ -92,10 +92,11 @@ long long gcd(bool mode, long long a, long long b) {
 
   return result; /* просто НОД но если возвращать еще и а и б
               то нужно либо через структуру либо переделывать
-              чтобы функция возвращала vector, переделаю */
+              чтобы функция возвращала vector, переделаю 
+              МАЯКНИ В ЛС КАК ПЕРЕДЕЛАЕШЬ*/
 }
 
-void lit_big(long long a, long long y, long long p) {
+std::vector<long long> lit_big(long long a, long long y, long long p) {
   long long root = 1;
   std::vector<long long> lit;
   std::vector<long long> big;
@@ -147,4 +148,5 @@ void lit_big(long long a, long long y, long long p) {
       }
     }
   }
+  return result;
 }
