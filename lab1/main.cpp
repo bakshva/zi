@@ -59,10 +59,11 @@ int main() {
                 clear_input();
                 continue;
             }
-            
-            int gcd_var = gcd(false, a, b);
+
+            long long gcd_var = gcd(false, &a, &b);
             std::cout << "НОД = " << gcd_var << "\n\n";
         }
+
         else {
             std::cout << "Неизвестная команда\n\n";
         }

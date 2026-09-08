@@ -4,6 +4,10 @@
 #include <cstdlib>
 #include <ctime>
 
+long long gcd_ptr(long long a, long long b) {
+    return gcd(false, &a, &b);
+}
+
 TEST(PowsTest, Basic) {
     EXPECT_EQ(pows(2, 10, 1000), 24);
     EXPECT_EQ(pows(3, 5, 13), 9);          
@@ -25,26 +29,25 @@ TEST(PowsTest, Larger) {
 }
 
 TEST(GcdTest, Basic) {
-    EXPECT_EQ(gcd(false, 48, 18), 6);
-    EXPECT_EQ(gcd(false, 17, 13), 1);
-    EXPECT_EQ(gcd(false, 100, 25), 25);
-    EXPECT_EQ(gcd(false, 7, 7), 7);
+    EXPECT_EQ(gcd_ptr(48, 18), 6);
+    EXPECT_EQ(gcd_ptr(17, 13), 1);
+    EXPECT_EQ(gcd_ptr(100, 25), 25);
+    EXPECT_EQ(gcd_ptr(7, 7), 7);
 }
 
 TEST(GcdTest, OrderDoesNotMatter) {
-    EXPECT_EQ(gcd(false, 18, 48), 6);
-    EXPECT_EQ(gcd(false, 13, 17), 1);
+    EXPECT_EQ(gcd_ptr(18, 48), 6);
+    EXPECT_EQ(gcd_ptr(13, 17), 1);
 }
 
 TEST(GcdTest, WithOne) {
-    EXPECT_EQ(gcd(false, 42, 1), 1);
-    EXPECT_EQ(gcd(false, 1, 42), 1);
+    EXPECT_EQ(gcd_ptr(42, 1), 1);
+    EXPECT_EQ(gcd_ptr(1, 42), 1);
 }
 
 TEST(GcdTest, LargerNumbers) {
-    EXPECT_EQ(gcd(false, 123456789, 987654321), 9);
+    EXPECT_EQ(gcd_ptr(123456789, 987654321), 9);
 }
-
 
 TEST(FermaTest, KnownPrimes) {
     EXPECT_TRUE(ferma(2));

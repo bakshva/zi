@@ -33,7 +33,7 @@ bool ferma(long long p) {
 
   for (size_t i = 0; i < 100; i++) {
     long long a = (rand() % (p - 2)) + 2;
-    if (gcd(0, a, p) != 1)
+    if (gcd(false, &a, &p) != 1)
       return false;
 
     if (pows(a, p - 1, p) != 1)
@@ -52,10 +52,10 @@ long long generate() {
   }
 }
 
-long long gcd(bool mode, long long a, long long b) {
-  long long result = 0;
+long long gcd(bool mode, long long* a_ptr, long long* b_ptr) {
+  long long a, b;
 
-  if (a == -1 || b == -1) {
+  if (!a_ptr || !b_ptr) {
     if (mode) {
       a = generate();
       b = generate();
@@ -63,6 +63,9 @@ long long gcd(bool mode, long long a, long long b) {
       a = (rand() % 1000000) + 2;
       b = (rand() % 1000000) + 2;
     }
+  } else {
+    a = *a_ptr;
+    b = *b_ptr;
   }
 
   if (a < b) {
@@ -83,11 +86,9 @@ long long gcd(bool mode, long long a, long long b) {
     }
   }
 
-  a = u[1];
-  b = u[2];
-  result = u[0];
+  long long result = u[0];
 
-  std::cout << "a = " << a << " b = " << b << "\n";
+  std::cout << "a = " << u[1] << " b = " << u[2] << "\n";
 
   return result;
 }
