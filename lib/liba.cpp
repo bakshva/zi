@@ -53,44 +53,60 @@ long long generate() {
 }
 
 long long gcd(bool mode, long long* a_ptr, long long* b_ptr) {
-  long long a, b;
+    long long a, b;
 
-  if (!a_ptr || !b_ptr) {
-    if (mode) {
-      a = generate();
-      b = generate();
+    if (!a_ptr || !b_ptr) {
+        if (mode) {
+            a = generate();
+            b = generate();
+        } else {
+            a = (rand() % 1000000) + 2;
+            b = (rand() % 1000000) + 2;
+        }
     } else {
-      a = (rand() % 1000000) + 2;
-      b = (rand() % 1000000) + 2;
+        a = *a_ptr;
+        b = *b_ptr;
     }
-  } else {
-    a = *a_ptr;
-    b = *b_ptr;
-  }
 
-  if (a < b) {
-    long long temp = a;
-    a = b;
-    b = temp;
-  }
+    bool swapped = false;
 
-  std::vector<long long> u = {a, 1, 0};
-  std::vector<long long> v = {b, 0, 1};
-
-  while (v[0]) {
-    long long q = u[0] / v[0];
-    std::vector<long long> t = {u[0] % v[0], u[1] - q * v[1], u[2] - q * v[2]};
-    for (size_t i = 0; i < u.size(); ++i) {
-      u[i] = v[i];
-      v[i] = t[i];
+    if (a < b) {
+        long long temp = a;
+        a = b;
+        b = temp;
+        swapped = true;
     }
-  }
 
-  long long result = u[0];
+    std::vector<long long> u = {a, 1, 0};
+    std::vector<long long> v = {b, 0, 1};
 
-  std::cout << "a = " << u[1] << " b = " << u[2] << "\n";
+    while (v[0]) {
+        long long q = u[0] / v[0];
 
-  return result;
+        std::vector<long long> t = {
+            u[0] % v[0],
+            u[1] - q * v[1],
+            u[2] - q * v[2]
+        };
+
+        for (size_t i = 0; i < u.size(); ++i) {
+            u[i] = v[i];
+            v[i] = t[i];
+        }
+    }
+
+    long long x = u[1];
+    long long y = u[2];
+
+    if (swapped) {
+        long long temp = x;
+        x = y;
+        y = temp;
+    }
+
+    std::cout << "x = " << x << " y = " << y << "\n";
+
+    return u[0];
 }
 
 std::vector<long long> lit_big(long long a, long long y, long long p) {
