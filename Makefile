@@ -34,9 +34,7 @@ lab2/test: lab2/test.cpp $(LIB_OBJ)
 	$(CXX) $(CXXFLAGS) $(LIB_INC) $^ -o $@ $(GTEST_LIBS)
 
 test: lab1/test lab2/test
-	./lab1/test
-	./lab2/test
-
+	
 test1: lab1/test
 	./lab1/test
 

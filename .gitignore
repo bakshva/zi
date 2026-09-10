@@ -2,3 +2,5 @@ lib/liba.o
 lab1/main
 lab1/test
 lab2/main
+lab2/test
+lab*/main.dSYM/
