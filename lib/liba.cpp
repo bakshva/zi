@@ -1,7 +1,8 @@
 #include "liba.hpp"
 
 long long pows(long long a, long long x, long long p) {
-  if (p == 1) return 0;
+  if (p == 1)
+    return 0;
 
   std::vector<long long> mods;
   std::string x_bin = std::format("{:b}", x);
@@ -52,61 +53,59 @@ long long generate() {
   }
 }
 
-long long gcd(bool mode, long long* a_ptr, long long* b_ptr) {
-    long long a, b;
+long long gcd(bool mode, long long *a_ptr, long long *b_ptr) {
+  long long a, b;
 
-    if (!a_ptr || !b_ptr) {
-        if (mode) {
-            a = generate();
-            b = generate();
-        } else {
-            a = (rand() % 1000000) + 2;
-            b = (rand() % 1000000) + 2;
-        }
+  if (!a_ptr || !b_ptr) {
+    if (mode) {
+      a = generate();
+      b = generate();
     } else {
-        a = *a_ptr;
-        b = *b_ptr;
+      a = (rand() % 1000000) + 2;
+      b = (rand() % 1000000) + 2;
     }
+  } else {
+    a = *a_ptr;
+    b = *b_ptr;
+  }
 
-    bool swapped = false;
+  bool swapped = false;
 
-    if (a < b) {
-        long long temp = a;
-        a = b;
-        b = temp;
-        swapped = true;
+  if (a < b) {
+    long long temp = a;
+    a = b;
+    b = temp;
+    swapped = true;
+  }
+
+  std::vector<long long> u = {a, 1, 0};
+  std::vector<long long> v = {b, 0, 1};
+
+  while (v[0]) {
+    long long q = u[0] / v[0];
+
+    std::vector<long long> t = {u[0] % v[0], u[1] - q * v[1], u[2] - q * v[2]};
+
+    for (size_t i = 0; i < u.size(); ++i) {
+      u[i] = v[i];
+      v[i] = t[i];
     }
+  }
 
-    std::vector<long long> u = {a, 1, 0};
-    std::vector<long long> v = {b, 0, 1};
+  long long x = u[1];
+  long long y = u[2];
 
-    while (v[0]) {
-        long long q = u[0] / v[0];
+  if (swapped) {
+    long long temp = x;
+    x = y;
+    y = temp;
+  }
 
-        std::vector<long long> t = {
-            u[0] % v[0],
-            u[1] - q * v[1],
-            u[2] - q * v[2]
-        };
+  // std::cout << "x = " << x << " y = " << y << "\n";
 
-        for (size_t i = 0; i < u.size(); ++i) {
-            u[i] = v[i];
-            v[i] = t[i];
-        }
-    }
+  /*лабу сдали, думаю можно вывод закоментить*/
 
-    long long x = u[1];
-    long long y = u[2];
-
-    if (swapped) {
-        long long temp = x;
-        x = y;
-        y = temp;
-    }
-
-    std::cout << "x = " << x << " y = " << y << "\n";
-
-    return u[0];
+  return u[0];
 }
 
 std::vector<long long> lit_big(long long a, long long y, long long p) {
@@ -155,11 +154,54 @@ std::vector<long long> lit_big(long long a, long long y, long long p) {
     if (it != pos.end()) {
       for (size_t i : it->second) {
         long long x = (i + 1) * m - static_cast<long long>(j);
-        std::cout << "X(" << count << ") = " << x << "\n";
+        // std::cout << "X(" << count << ") = " << x << "\n";
         result.push_back(x);
         ++count;
       }
     }
   }
+  return result;
+}
+
+
+bool isPrimitiveRoot(long long p, long long g){
+  for (auto i = 1; i < p-1; i++){
+    if (pows(g,i,p) == 1)
+      return false;
+  }
+  return true;
+}
+
+long long DiffieHellman(long long *p_ptr, long long *g_ptr, long long *x_a_ptr,
+                         long long *x_b_ptr) {
+  long long p, g, x_a, x_b, result;
+  p = (p_ptr && *p_ptr >= 1 && ferma(*p_ptr)) ? *p_ptr : generate();
+
+  if (!g_ptr || *g_ptr <1 ){
+    do {
+        g = 2 + rand() % (p - 2);
+    } while (!isPrimitiveRoot(p, g));
+  }else{
+    g = *g_ptr;
+  }
+
+  x_a = (x_a_ptr && *x_a_ptr >= 1) ? *x_a_ptr : 2 + rand() % (p - 2);
+  x_b = (x_b_ptr && *x_b_ptr >= 1)? *x_b_ptr : 2 + rand() % (p - 2);
+
+  std::cout<< "p = "<< p<< "; g = "<<g<<"; x_a = " << x_a << "; x_b = "<<x_b<< ";\n";
+
+  long long y_a = pows(g,x_a, p);
+  long long y_b = pows(g,x_b,p);
+
+  long long z_ab = pows(y_b, x_a, p);
+  long long z_ba = pows(y_a, x_b, p);
+  
+  if (z_ab == z_ba){
+    result = z_ab;
+  }else{
+    std::cout<< "напортачили";
+    result = -1;
+  }
+
   return result;
 }
