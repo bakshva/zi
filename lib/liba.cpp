@@ -34,7 +34,7 @@ bool ferma(long long p) {
 
   for (size_t i = 0; i < 100; i++) {
     long long a = (rand() % (p - 2)) + 2;
-    if (gcd(false, &a, &p) != 1)
+    if (gcd(false, &a, &p).first != 1)
       return false;
 
     if (pows(a, p - 1, p) != 1)
@@ -53,7 +53,7 @@ long long generate() {
   }
 }
 
-long long gcd(bool mode, long long *a_ptr, long long *b_ptr) {
+std::pair<long long, long long> gcd(bool mode, long long *a_ptr, long long *b_ptr) {
   long long a, b;
 
   if (!a_ptr || !b_ptr) {
@@ -105,7 +105,7 @@ long long gcd(bool mode, long long *a_ptr, long long *b_ptr) {
 
   /*лабу сдали, думаю можно вывод закоментить*/
 
-  return u[0];
+  return {u[0], x};
 }
 
 std::vector<long long> lit_big(long long a, long long y, long long p) {

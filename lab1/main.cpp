@@ -60,7 +60,7 @@ int main() {
                 continue;
             }
 
-            long long gcd_var = gcd(false, &a, &b);
+            long long gcd_var = gcd(false, &a, &b).first;
             std::cout << "НОД = " << gcd_var << "\n\n";
         }
 
