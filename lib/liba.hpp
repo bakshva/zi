@@ -9,7 +9,12 @@
 #include <numeric>
 #include <cmath>
 #include <cstdlib>
+#include <cstdio>
 #include <unordered_map>
+#include <fstream>
+#include <sstream>
+#include <limits>
+#include <ctime>
 
 #define PRINT(x) std::cout << #x << " = " << (x) << std::endl;
 
@@ -21,5 +26,8 @@ std::vector<long long> lit_big(long long a, long long y, long long p);
 bool isPrimitiveRoot(long long p, long long g);
 long long DiffieHellman(long long *p_ptr, long long *g_ptr, long long *x_a_ptr,
                          long long *x_b_ptr);
+void genKeys(long long &p, long long &C_A, long long &C_B, long long &D_A, long long &D_B);
+void encryptFile(const std::string &in, const std::string &out, long long p, long long C_A, long long C_B);
+void decryptFile(const std::string &in, const std::string &out, long long p, long long D_A, long long D_B);
 
 #endif

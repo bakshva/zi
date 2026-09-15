@@ -1,8 +1,4 @@
 #include <liba.hpp>
-#include <iostream>
-#include <string>
-#include <limits>
-#include <sstream>
 
 void menu() {
     std::cout << "Выберите команду:\n"
