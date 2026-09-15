@@ -194,7 +194,7 @@ long long DiffieHellman(long long *p_ptr, long long *g_ptr, long long *x_a_ptr,
   if (z_ab == z_ba){
     result = z_ab;
   }else{
-    std::cout<< "напортачили";
+    std::cout<< "ключи не совпадают";
     result = -1;
   }
 
