@@ -183,7 +183,7 @@ long long DiffieHellman(long long *p_ptr, long long *g_ptr, long long *x_a_ptr,
   x_a = (x_a_ptr && *x_a_ptr >= 1) ? *x_a_ptr : 2 + rand() % (p - 2);
   x_b = (x_b_ptr && *x_b_ptr >= 1)? *x_b_ptr : 2 + rand() % (p - 2);
 
-  std::cout<< "p = "<< p<< "; g = "<<g<<"; x_a = " << x_a << "; x_b = "<<x_b<< ";\n";
+  //std::cout<< "p = "<< p<< "; g = "<<g<<"; x_a = " << x_a << "; x_b = "<<x_b<< ";\n";
 
   long long y_a = pows(g,x_a, p);
   long long y_b = pows(g,x_b,p);

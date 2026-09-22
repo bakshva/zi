@@ -6,7 +6,7 @@ LIB_SRC  = lib/liba.cpp
 LIB_OBJ  = lib/liba.o
 LIB_INC  = -Ilib
 
-LABS     = lab1 lab2 lab3 lab4 lab5 lab6
+LABS     = lab1 lab2 lab3 lab4 lab5 lab6 lab7
 
 GTEST_PREFIX = $(shell brew --prefix googletest)
 GTEST_INC    = -I$(GTEST_PREFIX)/include
@@ -26,6 +26,7 @@ lab3: lab3/main
 lab4: lab4/main
 lab5: lab5/main
 lab6: lab6/main
+lab7: lab7/main
 
 lab1/main: lab1/main.cpp $(LIB_OBJ)
 	$(CXX) $(CXXFLAGS) $(LIB_INC) $^ -o $@ $(LDFLAGS)
@@ -40,6 +41,8 @@ lab4/main: lab4/main.cpp $(LIB_OBJ)
 lab5/main: lab5/main.cpp $(LIB_OBJ)
 	$(CXX) $(CXXFLAGS) $(LIB_INC) $^ -o $@ $(LDFLAGS)
 lab6/main: lab6/main.cpp $(LIB_OBJ)
+	$(CXX) $(CXXFLAGS) $(LIB_INC) $^ -o $@ $(LDFLAGS)
+lab7/main: lab7/main.cpp $(LIB_OBJ)
 	$(CXX) $(CXXFLAGS) $(LIB_INC) $^ -o $@ $(LDFLAGS)
 
 lab1/test: lab1/test.cpp $(LIB_OBJ)
