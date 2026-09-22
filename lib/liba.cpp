@@ -15,13 +15,13 @@ long long pows(long long a, long long x, long long p) {
     if (i == 0) {
       mod_i = a % p;
     } else {
-      mod_i = (mods[i - 1] * mods[i - 1]) % p;
+      mod_i = (long long)(((__int128)mods[i - 1] * mods[i - 1]) % p);
     }
 
     mods.push_back(mod_i);
 
     if (x_bin[i] == '1') {
-      result = (result * mod_i) % p;
+      result = (long long)(((__int128)result * mod_i) % p);
     }
   }
 
