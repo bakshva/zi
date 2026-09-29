@@ -1,6 +1,20 @@
+UNAME := $(shell uname -s)
+
 CXX      = g++
 CXXFLAGS = -std=c++20 -Wall -Wextra -g
 LDFLAGS  =
+
+ifeq ($(UNAME),Darwin)
+OPENSSL_PREFIX := $(shell brew --prefix openssl)
+CXXFLAGS += -I$(OPENSSL_PREFIX)/include
+LDFLAGS  += -L$(OPENSSL_PREFIX)/lib
+GTEST_PREFIX := $(shell brew --prefix googletest)
+GTEST_INC    = -I$(GTEST_PREFIX)/include
+GTEST_LIB    = -L$(GTEST_PREFIX)/lib
+else
+GTEST_INC    =
+GTEST_LIB    =
+endif
 
 LIB_SRC  = lib/liba.cpp
 LIB_OBJ  = lib/liba.o
@@ -9,18 +23,18 @@ LIB_INC  = -Ilib
 LIB_MD5_SRC = lib/md5.cpp
 LIB_MD5_OBJ = lib/md5.o
 
-LABS     = lab1 lab2 lab3 lab4 lab5 lab6 lab7 lab9 lab11
+LABS     = lab1 lab2 lab3 lab4 lab5 lab6 lab7 lab8 lab9 lab10 lab11
 
-GTEST_PREFIX = $(shell brew --prefix googletest)
-GTEST_INC    = -I$(GTEST_PREFIX)/include
-GTEST_LIB    = -L$(GTEST_PREFIX)/lib
 GTEST_LIBS   = $(GTEST_LIB) -lgtest -lgtest_main -pthread
 
-.PHONY: all clean $(LABS)
+.PHONY: all clean test test1 test2 test3 test4 $(LABS)
 
 all: $(LABS)
 
 $(LIB_OBJ): $(LIB_SRC) lib/liba.hpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+$(LIB_MD5_OBJ): $(LIB_MD5_SRC) lib/md5.hpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 lab1: lab1/main
@@ -30,9 +44,9 @@ lab4: lab4/main
 lab5: lab5/main
 lab6: lab6/main
 lab7: lab7/main
-
+lab8: lab8/main
 lab9: lab9/main
-
+lab10: lab10/main
 lab11: lab11/main
 
 lab1/main: lab1/main.cpp $(LIB_OBJ)
@@ -43,16 +57,26 @@ lab2/main: lab2/main.cpp $(LIB_OBJ)
 
 lab3/main: lab3/main.cpp $(LIB_OBJ)
 	$(CXX) $(CXXFLAGS) $(LIB_INC) $^ -o $@ $(LDFLAGS)
+
 lab4/main: lab4/main.cpp $(LIB_OBJ)
 	$(CXX) $(CXXFLAGS) $(LIB_INC) $^ -o $@ $(LDFLAGS)
+
 lab5/main: lab5/main.cpp $(LIB_OBJ)
 	$(CXX) $(CXXFLAGS) $(LIB_INC) $^ -o $@ $(LDFLAGS)
+
 lab6/main: lab6/main.cpp $(LIB_OBJ)
 	$(CXX) $(CXXFLAGS) $(LIB_INC) $^ -o $@ $(LDFLAGS)
+
 lab7/main: lab7/main.cpp $(LIB_OBJ)
 	$(CXX) $(CXXFLAGS) $(LIB_INC) $^ -o $@ $(LDFLAGS)
 
+lab8/main: lab8/main.cpp $(LIB_OBJ) $(LIB_MD5_OBJ)
+	$(CXX) $(CXXFLAGS) $(LIB_INC) $^ -o $@ $(LDFLAGS) -lcrypto
+
 lab9/main: lab9/main.cpp $(LIB_OBJ) $(LIB_MD5_OBJ)
+	$(CXX) $(CXXFLAGS) $(LIB_INC) $^ -o $@ $(LDFLAGS) -lcrypto
+
+lab10/main: lab10/main.cpp $(LIB_OBJ) $(LIB_MD5_OBJ)
 	$(CXX) $(CXXFLAGS) $(LIB_INC) $^ -o $@ $(LDFLAGS) -lcrypto
 
 lab11/main: lab11/main.cpp $(LIB_OBJ) $(LIB_MD5_OBJ)
@@ -85,4 +109,4 @@ test4: lab4/test
 	./lab4/test
 
 clean:
-	rm -f lib/*.o lab1/main lab2/main
+	rm -f lib/*.o lab1/main lab2/main lab3/main lab4/main lab5/main lab6/main lab7/main lab8/main lab9/main lab10/main lab11/main lab1/test lab2/test lab3/test lab4/test
