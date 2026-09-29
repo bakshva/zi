@@ -34,8 +34,8 @@ void ElGamal(long long *p_ptr, long long *g_ptr, long long *c_b_ptr) {
 
   if (command == 1) {
     file >> m;
-    std::cout<< "введите k \n";
-    clear_input(); 
+    std::cout << "введите k \n";
+    clear_input();
 
     std::string line;
     std::getline(std::cin, line);

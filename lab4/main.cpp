@@ -1,6 +1,7 @@
 #include "liba.hpp"
 
-void genKeys(long long &p, long long &C_A, long long &C_B, long long &D_A, long long &D_B) {
+void genKeys(long long &p, long long &C_A, long long &C_B, long long &D_A,
+             long long &D_B) {
   p = generate();
   while (p <= 255)
     p = generate();
@@ -17,7 +18,7 @@ void genKeys(long long &p, long long &C_A, long long &C_B, long long &D_A, long 
     } while (g != 1);
   }
 
-  for(int i = 0; i < 2; i++) {
+  for (int i = 0; i < 2; i++) {
     long long a = C[i], b = mod_p;
     std::pair<long long, long long> res = gcd(false, &a, &b);
     long long x = res.second;
@@ -30,7 +31,8 @@ void genKeys(long long &p, long long &C_A, long long &C_B, long long &D_A, long 
   D_B = D[1];
 }
 
-void encryptFile(const std::string &in, const std::string &out, long long p, long long C_A, long long C_B) {
+void encryptFile(const std::string &in, const std::string &out, long long p,
+                 long long C_A, long long C_B) {
   std::ifstream f1(in, std::ios::binary);
   std::ofstream f2(out, std::ios::binary);
 
@@ -43,7 +45,8 @@ void encryptFile(const std::string &in, const std::string &out, long long p, lon
   }
 }
 
-void decryptFile(const std::string &in, const std::string &out, long long p, long long D_A, long long D_B) {
+void decryptFile(const std::string &in, const std::string &out, long long p,
+                 long long D_A, long long D_B) {
   std::ifstream f1(in, std::ios::binary);
   std::ofstream f2(out, std::ios::binary);
 
@@ -94,7 +97,8 @@ int main() {
     genKeys(p, C_A, C_B, D_A, D_B);
   }
 
-  std::cout << "p = " << p << "\nC_A = " << C_A << "\nC_B = " << C_B << "\nD_A = " << D_A << "\nD_B = " << D_B << "\n";
+  std::cout << "p = " << p << "\nC_A = " << C_A << "\nC_B = " << C_B
+            << "\nD_A = " << D_A << "\nD_B = " << D_B << "\n";
 
   std::string in, out;
   std::cout << "Входной файл: ";

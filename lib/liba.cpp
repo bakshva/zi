@@ -53,7 +53,8 @@ long long generate() {
   }
 }
 
-std::pair<long long, long long> gcd(bool mode, long long *a_ptr, long long *b_ptr) {
+std::pair<long long, long long> gcd(bool mode, long long *a_ptr,
+                                    long long *b_ptr) {
   long long a, b;
 
   if (!a_ptr || !b_ptr) {
@@ -158,46 +159,45 @@ std::vector<long long> lit_big(long long a, long long y, long long p) {
   return result;
 }
 
-
-bool isPrimitiveRoot(long long p, long long g){
-  for (auto i = 1; i < p-1; i++){
-    if (pows(g,i,p) == 1)
+bool isPrimitiveRoot(long long p, long long g) {
+  for (auto i = 1; i < p - 1; i++) {
+    if (pows(g, i, p) == 1)
       return false;
   }
   return true;
 }
 
 long long DiffieHellman(long long *p_ptr, long long *g_ptr, long long *x_a_ptr,
-                         long long *x_b_ptr) {
+                        long long *x_b_ptr) {
   long long p, g, x_a, x_b, result;
   p = (p_ptr && *p_ptr >= 1 && ferma(*p_ptr)) ? *p_ptr : generate();
 
-  if (!g_ptr || *g_ptr <1 ){
+  if (!g_ptr || *g_ptr < 1) {
     do {
-        g = 2 + rand() % (p - 2);
+      g = 2 + rand() % (p - 2);
     } while (!isPrimitiveRoot(p, g));
-  }else{
+  } else {
     g = *g_ptr;
   }
 
   x_a = (x_a_ptr && *x_a_ptr >= 1) ? *x_a_ptr : 2 + rand() % (p - 2);
-  x_b = (x_b_ptr && *x_b_ptr >= 1)? *x_b_ptr : 2 + rand() % (p - 2);
+  x_b = (x_b_ptr && *x_b_ptr >= 1) ? *x_b_ptr : 2 + rand() % (p - 2);
 
-  //std::cout<< "p = "<< p<< "; g = "<<g<<"; x_a = " << x_a << "; x_b = "<<x_b<< ";\n";
+  // std::cout<< "p = "<< p<< "; g = "<<g<<"; x_a = " << x_a << "; x_b =
+  // "<<x_b<< ";\n";
 
-  long long y_a = pows(g,x_a, p);
-  long long y_b = pows(g,x_b,p);
+  long long y_a = pows(g, x_a, p);
+  long long y_b = pows(g, x_b, p);
 
   long long z_ab = pows(y_b, x_a, p);
   long long z_ba = pows(y_a, x_b, p);
-  
-  if (z_ab == z_ba){
+
+  if (z_ab == z_ba) {
     result = z_ab;
-  }else{
-    std::cout<< "ключи не совпадают";
+  } else {
+    std::cout << "ключи не совпадают";
     result = -1;
   }
 
   return result;
 }
-

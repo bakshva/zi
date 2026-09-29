@@ -6,7 +6,10 @@ LIB_SRC  = lib/liba.cpp
 LIB_OBJ  = lib/liba.o
 LIB_INC  = -Ilib
 
-LABS     = lab1 lab2 lab3 lab4 lab5 lab6 lab7 lab9
+LIB_MD5_SRC = lib/md5.cpp
+LIB_MD5_OBJ = lib/md5.o
+
+LABS     = lab1 lab2 lab3 lab4 lab5 lab6 lab7 lab9 lab11
 
 GTEST_PREFIX = $(shell brew --prefix googletest)
 GTEST_INC    = -I$(GTEST_PREFIX)/include
@@ -30,6 +33,8 @@ lab7: lab7/main
 
 lab9: lab9/main
 
+lab11: lab11/main
+
 lab1/main: lab1/main.cpp $(LIB_OBJ)
 	$(CXX) $(CXXFLAGS) $(LIB_INC) $^ -o $@ $(LDFLAGS)
 
@@ -47,7 +52,10 @@ lab6/main: lab6/main.cpp $(LIB_OBJ)
 lab7/main: lab7/main.cpp $(LIB_OBJ)
 	$(CXX) $(CXXFLAGS) $(LIB_INC) $^ -o $@ $(LDFLAGS)
 
-lab9/main: lab9/main.cpp $(LIB_OBJ)
+lab9/main: lab9/main.cpp $(LIB_OBJ) $(LIB_MD5_OBJ)
+	$(CXX) $(CXXFLAGS) $(LIB_INC) $^ -o $@ $(LDFLAGS) -lcrypto
+
+lab11/main: lab11/main.cpp $(LIB_OBJ) $(LIB_MD5_OBJ)
 	$(CXX) $(CXXFLAGS) $(LIB_INC) $^ -o $@ $(LDFLAGS) -lcrypto
 
 lab1/test: lab1/test.cpp $(LIB_OBJ)
