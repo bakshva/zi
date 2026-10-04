@@ -23,7 +23,7 @@ LIB_INC  = -Ilib
 LIB_MD5_SRC = lib/md5.cpp
 LIB_MD5_OBJ = lib/md5.o
 
-LABS     = lab1 lab2 lab3 lab4 lab5 lab6 lab7 lab8 lab9 lab10 lab11
+LABS     = lab1 lab2 lab3 lab4 lab5 lab6 lab7 lab8 lab9 lab10 lab11 lab12 lab13
 
 GTEST_LIBS   = $(GTEST_LIB) -lgtest -lgtest_main -pthread
 
@@ -48,6 +48,8 @@ lab8: lab8/main
 lab9: lab9/main
 lab10: lab10/main
 lab11: lab11/main
+lab12: lab12/main
+lab13: lab13/main
 
 lab1/main: lab1/main.cpp $(LIB_OBJ)
 	$(CXX) $(CXXFLAGS) $(LIB_INC) $^ -o $@ $(LDFLAGS)
@@ -82,6 +84,12 @@ lab10/main: lab10/main.cpp $(LIB_OBJ) $(LIB_MD5_OBJ)
 lab11/main: lab11/main.cpp $(LIB_OBJ) $(LIB_MD5_OBJ)
 	$(CXX) $(CXXFLAGS) $(LIB_INC) $^ -o $@ $(LDFLAGS) -lcrypto
 
+lab12/main: lab12/main.cpp $(LIB_OBJ)
+	$(CXX) $(shell fltk-config --cxxflags) $(CXXFLAGS) $(LIB_INC) $^ -o $@ $(LDFLAGS) $(shell fltk-config --ldflags)
+
+lab13/main: lab13/main.cpp
+	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS) -lcrypto
+
 lab1/test: lab1/test.cpp $(LIB_OBJ)
 	$(CXX) $(CXXFLAGS) $(LIB_INC) $(GTEST_INC) $^ -o $@ $(GTEST_LIBS)
 
@@ -109,4 +117,4 @@ test4: lab4/test
 	./lab4/test
 
 clean:
-	rm -f lib/*.o lab1/main lab2/main lab3/main lab4/main lab5/main lab6/main lab7/main lab8/main lab9/main lab10/main lab11/main lab1/test lab2/test lab3/test lab4/test
+	rm -f lib/*.o lab1/main lab2/main lab3/main lab4/main lab5/main lab6/main lab7/main lab8/main lab9/main lab10/main lab11/main lab12/main lab13/main lab1/test lab2/test lab3/test lab4/test

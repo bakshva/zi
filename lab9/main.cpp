@@ -105,7 +105,7 @@ void signFile() {
   auto hash = md5(data);
 
   long long p = 0, g = 0, x = 0;
-  std::cout << "параметры (Enter - сгенерировать)\n";
+  std::cout << "параметры \n";
   bool hasP = readOptional("p: ", p);
   bool hasG = readOptional("g: ", g);
   bool hasX = readOptional("x (секретный ключ): ", x);
@@ -159,11 +159,7 @@ void signFile() {
   sigFile.close();
 
   std::cout << "файл подписан\n"
-            << "подпись сохранена в " << sigFilename << "\n"
-            << "(в первой строке: p g y - публичные параметры,\n"
-            << " далее " << sig.size()
-            << " пар r s - подпись по байтам MD5-хеша)\n"
-            << "секретный ключ x = " << x << " (никому не передавать)\n";
+            << "подпись сохранена в " << sigFilename << "\n";
 }
 
 void verifyFile() {
